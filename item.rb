@@ -1,6 +1,7 @@
 class Item
-  def initialize(_title = 'unknown', genre = 'unknown', author = 'unknown', label = 'unknown', publish_date = 'unknown',
-                 archived = false, id: nil)
+  def initialize(title: 'unknown', genre: 'unknown', author: 'unknown', label: 'unknown',
+                 publish_date: 'unknown')
+    @title = title
     @genre = genre
     @author = author
     @label = label
