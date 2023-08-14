@@ -1,29 +1,28 @@
+require_relative 'menus'
+
 class App
+  def initialize
+    @menus = Menus.new
+  end
+
   def run
-    options
+    @menus.main_menu
     handle_user_choice
   end
 
   def run_books
-    books_menu
+    @menus.books_menu
     handle_books_choice
   end
 
   def run_music
-    music_menu
+    @menus.music_menu
     handle_music_choice
   end
 
   def run_games
-    games_menu
+    @menus.games_menu
     handle_games_choice
-  end
-
-  def options
-    puts '1. Books'
-    puts '2. Music Album'
-    puts '3. Games'
-    puts '4. Exit'
   end
 
   def handle_user_choice
@@ -155,30 +154,6 @@ class App
 
   def welcome
     puts 'Welcome to the Catalog of things! What would you like to interact with?'
-  end
-
-  def books_menu
-    puts 'What would you like to do?'
-    puts '1. List all books'
-    puts '2. List all labels'
-    puts '3. Add a book'
-    puts '4. Go back'
-  end
-
-  def music_menu
-    puts 'What would you like to do?'
-    puts '1. List all music albums'
-    puts '2. List all genres'
-    puts '3. Add a music album'
-    puts '4. Go back'
-  end
-
-  def games_menu
-    puts 'What would you like to do?'
-    puts '1. List of games'
-    puts '2. List all authors'
-    puts '3. Add a game'
-    puts '4. Go back'
   end
 
   def exit_app
