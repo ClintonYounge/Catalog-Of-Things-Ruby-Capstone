@@ -11,10 +11,10 @@ class Item
   end
 
   def can_be_archived?
-    @publish_date > '2013-01-01'
+    @publish_date < (Time.now - (10 * 365 * 24 * 60 * 60)).strftime('%Y-%m-%d')
   end
 
   def move_to_archive
-    @archived = true if can_be_archived?
+    @archived = can_be_archived?
   end
 end
