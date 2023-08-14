@@ -20,15 +20,15 @@ class App
   end
 
   def options
-    puts "1. Books"
-    puts "2. Music Album"
-    puts "3. Games"
-    puts "4. Exit"
+    puts '1. Books'
+    puts '2. Music Album'
+    puts '3. Games'
+    puts '4. Exit'
   end
 
   def handle_user_choice
     choice = gets.chomp.to_i
-  
+
     menu_options = {
       1 => :run_books,
       2 => :run_music,
@@ -36,10 +36,10 @@ class App
       4 => :exit_app
     }
 
-    if menu_options.has_key?(choice)
+    if menu_options.key?(choice)
       send(menu_options[choice])
     else
-      puts "Invalid choice. Try again."
+      puts 'Invalid choice. Try again.'
       options
       handle_user_choice
     end
@@ -47,7 +47,7 @@ class App
 
   def handle_books_choice
     choice = gets.chomp.to_i
-  
+
     menu_options = {
       1 => :list_books,
       2 => :list_labels,
@@ -55,10 +55,10 @@ class App
       4 => :go_back
     }
 
-    if menu_options.has_key?(choice)
+    if menu_options.key?(choice)
       send(menu_options[choice])
     else
-      puts "Invalid choice. Try again."
+      puts 'Invalid choice. Try again.'
       options
       handle_books_choice
     end
@@ -74,10 +74,10 @@ class App
       4 => :go_back
     }
 
-    if menu_options.has_key?(choice)
+    if menu_options.key?(choice)
       send(menu_options[choice])
     else
-      puts "Invalid choice. Try again."
+      puts 'Invalid choice. Try again.'
       options
       handle_music_choice
     end
@@ -93,97 +93,95 @@ class App
       4 => :go_back
     }
 
-    if menu_options.has_key?(choice)
+    if menu_options.key?(choice)
       send(menu_options[choice])
     else
-      puts "Invalid choice. Try again."
+      puts 'Invalid choice. Try again.'
       options
       handle_games_choice
     end
   end
 
   def go_back
-    puts "Going back..."
-    puts "-------------------------"
-    " "
-    " "
+    puts 'Going back...'
+    puts '-------------------------'
     run
   end
 
   def list_books
-    puts "Here are all the books:"
+    puts 'Here are all the books:'
     run_books
   end
 
   def list_labels
-    puts "Here are all the labels:"
+    puts 'Here are all the labels:'
     run_books
   end
 
   def add_book
-    puts "Adding a book"
+    puts 'Adding a book'
     run_books
   end
 
   def list_music
-    puts "Here are all the music albums:"
+    puts 'Here are all the music albums:'
     run_music
   end
 
   def list_genres
-    puts "Here are all the genres:"
+    puts 'Here are all the genres:'
     run_music
   end
 
   def add_music
-    puts "Adding a music album"
+    puts 'Adding a music album'
     run_music
   end
 
   def list_games
-    puts "Here are all the games:"
+    puts 'Here are all the games:'
     run_games
   end
 
   def list_authors
-    puts "Here are all the authors:"
+    puts 'Here are all the authors:'
     run_games
   end
 
   def add_game
-    puts "Adding a game"
+    puts 'Adding a game'
     run_games
   end
 
   def welcome
-    puts "Welcome to the Catalog of things! What would you like to interact with?"
+    puts 'Welcome to the Catalog of things! What would you like to interact with?'
   end
 
   def books_menu
-    puts "What would you like to do?"
-    puts "1. List all books"
-    puts "2. List all labels"
-    puts "3. Add a book"
-    puts "4. Go back"
+    puts 'What would you like to do?'
+    puts '1. List all books'
+    puts '2. List all labels'
+    puts '3. Add a book'
+    puts '4. Go back'
   end
 
   def music_menu
-    puts "What would you like to do?"
-    puts "1. List all music albums"
-    puts "2. List all genres"
-    puts "3. Add a music album"
-    puts "4. Go back"
+    puts 'What would you like to do?'
+    puts '1. List all music albums'
+    puts '2. List all genres'
+    puts '3. Add a music album'
+    puts '4. Go back'
   end
 
   def games_menu
-    puts "What would you like to do?"
-    puts "1. List of games"
-    puts "2. List all authors"
-    puts "3. Add a game"
-    puts "4. Go back"
+    puts 'What would you like to do?'
+    puts '1. List of games'
+    puts '2. List all authors'
+    puts '3. Add a game'
+    puts '4. Go back'
   end
 
   def exit_app
-    puts "Thanks for using our app!"
+    puts 'Thanks for using our app!'
   end
 end

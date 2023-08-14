@@ -1,5 +1,6 @@
 class Item
-  def initialize(title = "unknown", genre = "unknown", author = "unknown", label = "unknown", publish_date = "unknown", archived = false, id: nil)
+  def initialize(_title = 'unknown', genre = 'unknown', author = 'unknown', label = 'unknown', publish_date = 'unknown',
+                 archived = false, id: nil)
     @genre = genre
     @author = author
     @label = label
@@ -7,9 +8,9 @@ class Item
     @archived = archived
     @id = id || rand(1000)
   end
-    
+
   def can_be_archived?
-    @publish_date > "2013-01-01" ? true : false
+    @publish_date > '2013-01-01'
   end
 
   def move_to_archive
