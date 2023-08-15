@@ -33,4 +33,34 @@ class MusicManager
       puts "#{index + 1}. #{genre.name}: #{genre.items.count} items"
     end
   end
+
+  def save_music_albums
+    File.open('data/music_albums.json', 'w') do |file|
+      json_data = @music_albums.map(&:to_hash).to_json
+      file.write(json_data)
+    end
+  end
+
+  def load_music_albums
+    if File.exist?('data/music_albums.json')
+      json_data = File.read('data/music_albums.json')
+      album_hashes = JSON.parse(json_data)
+      @music_albums = album_hashes.map { |hash| MusicAlbum.from_hash(hash) }
+    end
+  end
+
+  def save_genres
+    File.open('data/genres.json', 'w') do |file|
+      json_data = @genres.map(&:to_hash).to_json
+      file.write(json_data)
+    end
+  end
+
+  def load_genres
+    if File.exist?('data/genres.json')
+      json_data = File.read('data/genres.json')
+      genre_hashes = JSON.parse(json_data)
+      @genres = genre_hashes.map { |hash| Genre.from_hash(hash) }
+    end
+  end
 end
