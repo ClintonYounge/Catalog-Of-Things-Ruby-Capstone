@@ -1,8 +1,10 @@
 require_relative 'menus'
+require_relative 'game_methods'
 
 class App
   def initialize
     @menus = Menus.new
+    @game_methods = GameMethods.new
   end
 
   def run
@@ -138,17 +140,17 @@ class App
   end
 
   def list_games
-    puts 'Here are all the games:'
+    @game_methods.list_games
     run_games
   end
 
   def list_authors
-    puts 'Here are all the authors:'
+    @game_methods.list_authors
     run_games
   end
 
   def add_game
-    puts 'Adding a game'
+    @game_methods.add_game
     run_games
   end
 
