@@ -2,11 +2,10 @@ require_relative 'item'
 
 class Book < Item
 
-    attr_accessor :publisher, :cover_state, :title
+    attr_accessor :publisher, :cover_state
 
     def initialize(inputs)
-        super(inputs[:publish_date], inputs[:archived], inputs[:genre], inputs[:author], inputs[:label] )
-        @title = inputs[:title]
+        super(inputs[:publish_date], inputs[:label] )
         @publisher = inputs[:publisher]
         @cover_state = inputs[:cover_state]
     end

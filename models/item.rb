@@ -1,17 +1,15 @@
 class Item
   attr_accessor :publish_date, :archived, :genre, :author, :label, :id
   
-  def initialize(publish_date, archived = false, genre, author, label)
+  def initialize(publish_date, label)
     @publish_date = publish_date
     @archived = false
     @id = Random.rand(1..10000)
-    @genre = genre
-    @author = author
     @label = label
   end
   
   def can_be_archived?
-    @last_played_at < 10.year.ago
+    (Date.today - @publish_date).to_i >= 3650
   end
   
   def move_to_archive
