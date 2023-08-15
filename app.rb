@@ -164,7 +164,6 @@ class App
   end
 
   def welcome
-    puts ' '
     puts 'Welcome to the Catalog of things! What would you like to interact with?'
   end
 
