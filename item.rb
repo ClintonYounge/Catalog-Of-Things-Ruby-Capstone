@@ -1,19 +1,12 @@
 class Item
-  def initialize(publish_date:)
+  def initialize(publish_date)
     @publish_date = publish_date
     @archived = false
     @id = id || rand(1000)
   end
 
   def move_to_archive
-    return unless can_be_archived?
-
-    @archived = true
-  end
-
-  def archived?
     @archived = can_be_archived?
-    @archived
   end
 
   def genre=(genre)
