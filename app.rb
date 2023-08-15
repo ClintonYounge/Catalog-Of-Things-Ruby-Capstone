@@ -1,10 +1,12 @@
 require_relative 'menus'
 require_relative 'game_methods'
+require_relative 'music_manager'
 
 class App
   def initialize
     @menus = Menus.new
     @game_methods = GameMethods.new
+    @music_manager = MusicManager.new
   end
 
   def run
@@ -126,16 +128,19 @@ class App
 
   def list_music
     puts 'Here are all the music albums:'
+    @music_manager.list_music_albums
     run_music
   end
 
   def list_genres
     puts 'Here are all the genres:'
+    @music_manager.list_genres
     run_music
   end
 
   def add_music
     puts 'Adding a music album'
+    @music_manager.create_music_album
     run_music
   end
 
