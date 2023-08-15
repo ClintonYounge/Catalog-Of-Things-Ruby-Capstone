@@ -5,6 +5,8 @@ class MusicManager
   def initialize
     @music_albums = []
     @genres = []
+    load_music_albums
+    load_genres
   end
 
   def create_music_album
@@ -20,6 +22,8 @@ class MusicManager
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
     puts "Music album '#{title}' added."
+    @music_albums << music_album
+    save_music_albums
   end
 
   def list_music_albums
