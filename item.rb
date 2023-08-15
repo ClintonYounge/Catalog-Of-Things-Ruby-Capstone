@@ -1,8 +1,11 @@
 class Item
-  def initialize(publish_date)
+  attr_accessor :publish_date
+  attr_reader :genre, :author, :label
+
+  def initialize(publish_date:, id: nil)
+    @id = id || Random.rand(1...1000)
     @publish_date = publish_date
     @archived = false
-    @id = id || rand(1000)
   end
 
   def move_to_archive
@@ -28,6 +31,6 @@ class Item
   private
 
   def can_be_archived?
-    @publish_date < (Time.now - (10 * 365 * 24 * 60 * 60)).strftime('%Y-%m-%d')
+    (Date.today - @published_date).to_i >= 3650
   end
 end
