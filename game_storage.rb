@@ -3,7 +3,6 @@ require_relative 'game'
 require_relative 'author'
 require 'json'
 
-
 class GameStorage
   def save_games_json(games)
     games_data = games.map do |game|
