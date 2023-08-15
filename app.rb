@@ -1,10 +1,14 @@
 require_relative 'menus'
 require_relative 'game_methods'
+require_relative 'game_storage'
 
 class App
   def initialize
     @menus = Menus.new
     @game_methods = GameMethods.new
+    @game_storage = GameStorage.new
+    @games = []
+    @authors = []
   end
 
   def run
@@ -140,22 +144,39 @@ class App
   end
 
   def list_games
-    @game_methods.list_games
+    @game_methods.list_games(@games)
     run_games
   end
 
   def list_authors
-    @game_methods.list_authors
+    @game_methods.list_authors(@authors)
     run_games
   end
 
   def add_game
-    @game_methods.add_game
+    @game_methods.add_game(@games, @authors)
     run_games
   end
 
   def welcome
+    puts ' '
     puts 'Welcome to the Catalog of things! What would you like to interact with?'
+  end
+
+  def save_games_json
+    @game_storage.save_games_json(@games)
+  end
+
+  def load_games_json
+    @game_storage.load_games_json(@games)
+  end
+
+  def load_authors_json
+    @game_storage.load_authors_json(@authors)
+  end
+
+  def save_authors_json
+    @game_storage.save_authors_json(@authors)
   end
 
   def exit_app
