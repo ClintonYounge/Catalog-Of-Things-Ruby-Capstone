@@ -1,20 +1,40 @@
 class Item
-  def initialize(title: 'unknown', genre: 'unknown', author: 'unknown', label: 'unknown',
-                 publish_date: 'unknown')
-    @title = title
-    @genre = genre
-    @author = author
-    @label = label
+  def initialize(publish_date:)
     @publish_date = publish_date
-    @archived = archived
+    @archived = false
     @id = id || rand(1000)
   end
 
-  def can_be_archived?
-    @publish_date < (Time.now - (10 * 365 * 24 * 60 * 60)).strftime('%Y-%m-%d')
+  def move_to_archive
+    return unless can_be_archived?
+
+    @archived = true
   end
 
-  def move_to_archive
+  def archived?
     @archived = can_be_archived?
+    @archived
+  end
+
+  def genre=(genre)
+    @genre = genre
+    genre.add_item(self)
+  end
+
+  def author=(author)
+    author.add_item(self)
+  end
+
+  def label=(label)
+    return if @label == label
+
+    @label = label
+    label&.add_item(self)
+  end
+
+  private
+
+  def can_be_archived?
+    @publish_date < (Time.now - (10 * 365 * 24 * 60 * 60)).strftime('%Y-%m-%d')
   end
 end
