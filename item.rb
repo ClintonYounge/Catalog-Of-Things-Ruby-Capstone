@@ -9,14 +9,7 @@ class Item
   end
 
   def move_to_archive
-    return unless can_be_archived?
-
-    @archived = true
-  end
-
-  def archived?
     @archived = can_be_archived?
-    @archived
   end
 
   def genre=(genre)
