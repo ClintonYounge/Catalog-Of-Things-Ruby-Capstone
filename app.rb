@@ -1,8 +1,10 @@
 require_relative 'menus'
+require './models/book_handler'
 
 class App
   def initialize
     @menus = Menus.new
+    @books_handler = BookHandler.new()
   end
 
   def run
@@ -109,16 +111,19 @@ class App
 
   def list_books
     puts 'Here are all the books:'
+    @books_handler.list_all_books
     run_books
   end
 
   def list_labels
     puts 'Here are all the labels:'
+    @books_handler.list_all_labels
     run_books
   end
 
   def add_book
     puts 'Adding a book'
+    @books_handler.add_book
     run_books
   end
 

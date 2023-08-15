@@ -14,6 +14,3 @@ class Book < Item
         super || (@cover_state.downcase == 'bad')
     end
 end
-
-cc = Book.new(title: "fff", cover_state: "bad")
-puts "#{cc.can_be_archived?}"

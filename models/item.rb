@@ -1,3 +1,4 @@
+require 'date'
 class Item
   attr_accessor :publish_date, :archived, :genre, :author, :label, :id
   
@@ -9,6 +10,7 @@ class Item
   end
   
   def can_be_archived?
+    return unless !@publish_date.nil? 
     (Date.today - @publish_date).to_i >= 3650
   end
   
