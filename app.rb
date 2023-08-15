@@ -1,12 +1,10 @@
 require_relative 'menus'
-require_relative 'game_methods'
 require './models/book_handler'
 
 class App
   def initialize
     @menus = Menus.new
-    @game_methods = GameMethods.new
-    @books_handler = BookHandler.new
+    @books_handler = BookHandler.new()
   end
 
   def run
