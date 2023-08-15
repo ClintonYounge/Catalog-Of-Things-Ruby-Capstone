@@ -4,7 +4,7 @@ require './models/book_handler'
 class App
   def initialize
     @menus = Menus.new
-    @books_handler = BookHandler.new()
+    @books_handler = BookHandler.new
   end
 
   def run
