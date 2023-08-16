@@ -3,6 +3,7 @@ require './models/book_handler'
 require_relative 'game_methods'
 require_relative 'game_storage'
 require_relative 'music_manager'
+require_relative 'run_options'
 
 class App
   def initialize
@@ -11,13 +12,13 @@ class App
     @game_methods = GameMethods.new
     @game_storage = GameStorage.new
     @music_manager = MusicManager.new
+    @run_options = RunOptions.new
     @games = []
     @authors = []
   end
 
   def run
-    @menus.main_menu
-    handle_user_choice
+    @run_options.run(@menus.main_menu, handle_user_choice)
   end
 
   def run_books
@@ -49,7 +50,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_user_choice
     end
   end
@@ -68,7 +68,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options3
       handle_books_choice
     end
   end
@@ -87,7 +86,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_music_choice
     end
   end
@@ -106,7 +104,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_games_choice
     end
   end
