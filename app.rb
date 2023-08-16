@@ -49,7 +49,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_user_choice
     end
   end
@@ -68,7 +67,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options3
       handle_books_choice
     end
   end
@@ -87,7 +85,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_music_choice
     end
   end
@@ -106,7 +103,6 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
       handle_games_choice
     end
   end
