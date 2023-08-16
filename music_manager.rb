@@ -10,6 +10,7 @@ class MusicManager
   end
 
   def create_music_album
+    puts 'Adding a music album'
     print 'Enter music album title: '
     title = gets.chomp
 
@@ -25,12 +26,14 @@ class MusicManager
   end
 
   def list_music_albums
+    puts 'Here are all the music albums:'
     @music_albums.each_with_index do |album, index|
       puts "#{index + 1}. #{album.title} (Published: #{album.publish_date})"
     end
   end
 
   def list_genres
+    puts 'Here are all the genres:'
     @genres.each_with_index do |genre, index|
       puts "#{index + 1}. #{genre.name}: #{genre.items.count} items"
     end

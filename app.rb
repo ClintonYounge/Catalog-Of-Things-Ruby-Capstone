@@ -3,7 +3,6 @@ require './models/book_handler'
 require_relative 'game_methods'
 require_relative 'game_storage'
 require_relative 'music_manager'
-require_relative 'run_options'
 
 class App
   def initialize
@@ -12,13 +11,13 @@ class App
     @game_methods = GameMethods.new
     @game_storage = GameStorage.new
     @music_manager = MusicManager.new
-    @run_options = RunOptions.new
     @games = []
     @authors = []
   end
 
   def run
-    @run_options.run(@menus.main_menu, handle_user_choice)
+    @menus.main_menu
+    handle_user_choice
   end
 
   def run_books
@@ -50,6 +49,7 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
+      options
       handle_user_choice
     end
   end
@@ -68,6 +68,7 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
+      options3
       handle_books_choice
     end
   end
@@ -86,6 +87,7 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
+      options
       handle_music_choice
     end
   end
@@ -104,48 +106,42 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
+      options
       handle_games_choice
     end
   end
 
   def go_back
-    puts 'Going back...'
-    puts '-------------------------'
+    @menus.back_main
     run
   end
 
   def list_books
-    puts 'Here are all the books:'
     @books_handler.list_all_books
     run_books
   end
 
   def list_labels
-    puts 'Here are all the labels:'
     @books_handler.list_all_labels
     run_books
   end
 
   def add_book
-    puts 'Adding a book'
     @books_handler.add_book
     run_books
   end
 
   def list_music
-    puts 'Here are all the music albums:'
     @music_manager.list_music_albums
     run_music
   end
 
   def list_genres
-    puts 'Here are all the genres:'
     @music_manager.list_genres
     run_music
   end
 
   def add_music
-    puts 'Adding a music album'
     @music_manager.create_music_album
     run_music
   end
