@@ -1,25 +1,36 @@
-require 'securerandom'
-require 'date'
-
 class Item
-  attr_accessor :label, :genre, :author
-  attr_reader :id, :published_date, :archived
+  attr_accessor :publish_date
+  attr_reader :genre, :author, :label
 
-  def initialize(published_date:, label: 'Unknown', genre: 'Unknown', author: 'Unknown')
-    @id = SecureRandom.uuid
-    @label = label
-    @genre = genre
-    @author = author
-    @published_date = published_date
+  def initialize(publish_date:, id: nil)
+    @id = id || Random.rand(1...1000)
+    @publish_date = publish_date
     @archived = false
-    move_to_archive
-  end
-
-  def can_be_archived?
-    (Time.now - DateTime.parse(@published_date).to_time) > 10 * 365 * 24 * 60 * 60 # 10 years in seconds
   end
 
   def move_to_archive
     @archived = can_be_archived?
+  end
+
+  def genre=(genre)
+    @genre = genre
+    genre.add_item(self)
+  end
+
+  def author=(author)
+    author.add_item(self)
+  end
+
+  def label=(label)
+    return if @label == label
+
+    @label = label
+    label&.add_item(self)
+  end
+
+  private
+
+  def can_be_archived?
+    (Date.today - @published_date).to_i >= 3650
   end
 end
