@@ -24,7 +24,7 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    book = Book.new(publisher, cover_state, label)
+    book = Book.new(label, publisher, cover_state)
     @books << book
     save_books
     save_labels
@@ -70,8 +70,8 @@ class BookHandler
       label = @labels.find { |lb| lb.title == label_title && lb.color == label_color }
       next unless label
 
-      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'],
-                      cover_state: book_data['cover_state'], label: label)
+      book = Book.new(label: label, published_date: book_data['published_date'], publisher: book_data['publisher'],
+                      cover_state: book_data['cover_state'])
       @books << book
     end
   end
