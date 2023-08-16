@@ -1,7 +1,7 @@
 require_relative 'music_manager'
 # genre.rb
 class Genre
-  attr_reader :name, :items
+  attr_accessor :name, :items
 
   def initialize(name)
     @name = name
