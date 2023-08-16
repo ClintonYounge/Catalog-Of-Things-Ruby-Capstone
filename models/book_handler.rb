@@ -15,7 +15,7 @@ class BookHandler
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
-    gets.chomp
+    published_date = gets.chomp
     puts 'Enter book Color:'
     color = gets.chomp.capitalize
     puts 'Enter book publisher:'
@@ -24,7 +24,7 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    book = Book.new(label, publisher, cover_state)
+    book = Book.new(label, published_date, publisher, cover_state)
     @books << book
     save_books
     save_labels
@@ -34,14 +34,14 @@ class BookHandler
   def list_all_books
     puts 'Here are all the books:'
     @books.each_with_index do |bk, index|
-      puts "#{index + 1}: Title: #{bk.label.title}  Color: #{bk.label.color} Cover state: #{bk.cover_state}"
+      puts "#{index + 1}: Title: #{bk.label.title}, Book color: #{bk.label.color}, Cover state: #{bk.cover_state}"
     end
   end
 
   def list_all_labels
     puts 'Here are all the labels:'
     @labels.each_with_index do |lb, index|
-      puts "#{index + 1}: Title: #{lb.title} color: #{lb.color}"
+      puts "#{index + 1}: Title: #{lb.title}, color: #{lb.color}"
     end
   end
 
@@ -53,7 +53,6 @@ class BookHandler
         cover_state: book.cover_state,
         title: book.label.title,
         color: book.label.color
-
       }
     end
     File.write('books.json', JSON.generate(books_data))
@@ -64,15 +63,10 @@ class BookHandler
 
     books_data = JSON.parse(File.read('books.json'))
     books_data.each do |book_data|
-      label_title = book_data['title']
-      label_color = book_data['color']
-
-      label = @labels.find { |lb| lb.title == label_title && lb.color == label_color }
-      next unless label
-
-      book = Book.new(label: label, published_date: book_data['published_date'], publisher: book_data['publisher'],
-                      cover_state: book_data['cover_state'])
+      label = Label.new(book_data['title'], book_data['color'])
+      book = Book.new(label, book_data['published_date'], book_data['publisher'], book_data['cover_state'])
       @books << book
+      puts 'Books loaded successfully👏'
     end
   end
 
