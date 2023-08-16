@@ -56,7 +56,8 @@ class MusicManager
     albums_data = JSON.parse(File.read('music_albums.json'))
 
     albums_data.each do |album_data|
-      album = MusicAlbum.new(title: album_data['title'], publish_date: album_data['publish_date'], on_spotify: album_data['on_spotify'])
+      album = MusicAlbum.new(title: album_data['title'], publish_date: album_data['publish_date'],
+                             on_spotify: album_data['on_spotify'])
       @music_albums << album
     end
   end
