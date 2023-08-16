@@ -5,14 +5,9 @@ require 'date'
 class GameMethods
   attr_accessor :games
 
-  def initialize
-    @games = []
-    @authors = []
-  end
-
-  def list_games
-    if @games.length.positive?
-      @games.each do |game|
+  def list_games(games)
+    if games.length.positive?
+      games.each do |game|
         puts "Multiplayer: #{game.multiplayer}. Last played at: #{game.last_played_at}"
       end
     else
@@ -20,17 +15,17 @@ class GameMethods
     end
   end
 
-  def list_authors
-    if @authors.length.positive?
-      @authors.each do |author|
-        puts "#{author.first_name} #{author.last_name}"
+  def list_authors(authors)
+    if authors.length.positive?
+      authors.each do |author|
+        puts "First Name: #{author.first_name}, Last Name: #{author.last_name}"
       end
     else
       puts 'No authors found'
     end
   end
 
-  def add_game
+  def add_game(games, authors)
     puts "What's the author's first name?"
     first_name = gets.chomp.capitalize
     puts "What's the author's last name?"
@@ -48,8 +43,8 @@ class GameMethods
       puts 'invalid date format. Please enter the date in YYYY-MM-DD format'
     end
     author = Author.new(first_name, last_name)
-    @authors << author
+    authors << author
     game = Game.new(multiplayer, played_date)
-    @games << game
+    games << game
   end
 end

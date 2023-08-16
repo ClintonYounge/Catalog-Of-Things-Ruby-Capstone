@@ -5,18 +5,21 @@ class Item
   attr_accessor :label, :genre, :author
   attr_reader :id, :published_date, :archived
 
-  def initialize(published_date:, label: 'Unknown', genre: 'Unknown', author: 'Unknown')
-    @id = SecureRandom.uuid
-    @label = label
-    @genre = genre
-    @author = author
+  def initialize(published_date:, id: nil)
+    @id = id || SecureRandom.uuid
+    @label = nil
+    @genre = nil
+    @author = nil
     @published_date = published_date
     @archived = false
     move_to_archive
   end
 
   def can_be_archived?
-    (Time.now - DateTime.parse(@published_date).to_time) > 10 * 365 * 24 * 60 * 60 # 10 years in seconds
+    return false if @published_date.nil?
+
+    published_date = DateTime.parse(@published_date)
+    published_date < DateTime.now - 30
   end
 
   def move_to_archive

@@ -1,12 +1,15 @@
 require_relative 'app'
-require_relative 'music_manager'
 
 def main
   app = App.new
+  app.load_games_json
+  app.load_authors_json
+
   app.welcome
   app.run
 
-  MusicManager.save_genres
+  app.save_games_json
+  app.save_authors_json
 end
 
 main
