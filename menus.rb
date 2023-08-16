@@ -29,4 +29,9 @@ class Menus
     puts '3. Add a game'
     puts '4. Go back'
   end
+
+  def back_main
+    puts 'Going back...'
+    puts '-------------------------'
+  end
 end

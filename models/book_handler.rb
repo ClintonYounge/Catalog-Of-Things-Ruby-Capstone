@@ -9,6 +9,7 @@ class BookHandler
   end
 
   def add_book
+    puts 'Adding a book'
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
@@ -28,12 +29,14 @@ class BookHandler
   end
 
   def list_all_books
+    puts 'Here are all the books:'
     @books.each_with_index do |bk, index|
       puts "#{index + 1}: Title: #{bk.label.title} ID: #{bk.id} Cover state: #{bk.cover_state}"
     end
   end
 
   def list_all_labels
+    puts 'Here are all the labels:'
     @labels.each_with_index do |lb, index|
       puts "#{index + 1}: Title: #{lb.title} color: #{lb.color}"
     end

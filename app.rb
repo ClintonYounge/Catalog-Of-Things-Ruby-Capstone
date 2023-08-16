@@ -10,9 +10,9 @@ class App
     @books_handler = BookHandler.new
     @game_methods = GameMethods.new
     @game_storage = GameStorage.new
+    @music_manager = MusicManager.new
     @games = []
     @authors = []
-    @music_manager = MusicManager.new
   end
 
   def run
@@ -68,7 +68,7 @@ class App
       send(menu_options[choice])
     else
       puts 'Invalid choice. Try again.'
-      options
+      options3
       handle_books_choice
     end
   end
@@ -112,43 +112,36 @@ class App
   end
 
   def go_back
-    puts 'Going back...'
-    puts '-------------------------'
+    @menus.back_main
     run
   end
 
   def list_books
-    puts 'Here are all the books:'
     @books_handler.list_all_books
     run_books
   end
 
   def list_labels
-    puts 'Here are all the labels:'
     @books_handler.list_all_labels
     run_books
   end
 
   def add_book
-    puts 'Adding a book'
     @books_handler.add_book
     run_books
   end
 
   def list_music
-    puts 'Here are all the music albums:'
     @music_manager.list_music_albums
     run_music
   end
 
   def list_genres
-    puts 'Here are all the genres:'
     @music_manager.list_genres
     run_music
   end
 
   def add_music
-    puts 'Adding a music album'
     @music_manager.create_music_album
     run_music
   end
@@ -186,6 +179,10 @@ class App
 
   def save_authors_json
     @game_storage.save_authors_json(@authors)
+  end
+
+  def save_music_albums_json
+    @music_manager.save_music_albums_json
   end
 
   def exit_app
