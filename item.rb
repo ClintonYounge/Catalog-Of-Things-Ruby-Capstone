@@ -17,6 +17,7 @@ class Item
 
   def can_be_archived?
     return false if @published_date.nil?
+
     published_date = DateTime.parse(@published_date)
     published_date < DateTime.now - 30
   end
