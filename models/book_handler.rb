@@ -8,7 +8,10 @@ class BookHandler
     @labels = []
   end
 
-  def add_book
+  def input_book
+  end
+
+  def add_book(book)
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
@@ -49,5 +52,14 @@ class BookHandler
       }
     end
     File.write('books.json', JSON.generate(books_data))
+  end
+
+  def load_books
+    return unless File.exist?('books.json')
+    books_data = JSON.parse(File.read('books.json'))
+    books_data.each do |book_data|
+      book = Book.new(publish_date: book_data['publish_date'], publisher: book_data['publisher'], cover_state: book_data['cover_state'], label: book_data['label'])
+      @books << book
+    end
   end
 end
