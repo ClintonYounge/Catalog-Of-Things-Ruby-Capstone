@@ -6,6 +6,8 @@ class BookHandler
   def initialize
     @books = []
     @labels = []
+    load_books
+    load_labels
   end
 
   def add_book
@@ -13,7 +15,7 @@ class BookHandler
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
-    publish_date = gets.chomp
+    published_date = gets.chomp
     puts 'Enter book Color:'
     color = gets.chomp.capitalize
     puts 'Enter book publisher:'
@@ -22,16 +24,18 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    inputs = { publish_date: publish_date, publisher: publisher, cover_state: cover_state, label: label }
+    inputs = { published_date: published_date, publisher: publisher, cover_state: cover_state, label: label }
     book = Book.new(inputs)
     @books << book
+    save_books
+    save_labels
     puts "The book #{book.label.title} was added successfully👏"
   end
 
   def list_all_books
     puts 'Here are all the books:'
     @books.each_with_index do |bk, index|
-      puts "#{index + 1}: Title: #{bk.label.title} ID: #{bk.id} Cover state: #{bk.cover_state}"
+      puts "#{index + 1}: Title: #{bk.label.title}  Color: #{bk.label.color} Cover state: #{bk.cover_state}"
     end
   end
 
@@ -39,6 +43,52 @@ class BookHandler
     puts 'Here are all the labels:'
     @labels.each_with_index do |lb, index|
       puts "#{index + 1}: Title: #{lb.title} color: #{lb.color}"
+    end
+  end
+
+  def save_books
+    books_data = @books.map do |book|
+      {
+        published_date: book.published_date,
+        publisher: book.publisher,
+        cover_state: book.cover_state,
+        title: book.label.title,
+        color: book.label.color
+
+      }
+    end
+    File.write('books.json', JSON.generate(books_data))
+  end
+
+  def load_books
+    return unless File.exist?('books.json')
+
+    books_data = JSON.parse(File.read('books.json'))
+    books_data.each do |book_data|
+      label = Label.new(book_data['title'], book_data['color'])
+      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'],
+                      cover_state: book_data['cover_state'], label: label)
+      @books << book
+    end
+  end
+
+  def save_labels
+    label_data = @labels.map do |label|
+      {
+        title: label.title,
+        color: label.color
+      }
+    end
+    File.write('labels.json', JSON.generate(label_data))
+  end
+
+  def load_labels
+    return unless File.exist?('labels.json')
+
+    labels_data = JSON.parse(File.read('labels.json'))
+    labels_data.each do |label_data|
+      label = Label.new(label_data['title'], label_data['color'])
+      @labels << label
     end
   end
 end
