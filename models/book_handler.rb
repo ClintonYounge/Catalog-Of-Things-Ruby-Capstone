@@ -15,7 +15,7 @@ class BookHandler
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
-    published_date = gets.chomp
+    gets.chomp
     puts 'Enter book Color:'
     color = gets.chomp.capitalize
     puts 'Enter book publisher:'
@@ -24,8 +24,7 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    inputs = { published_date: published_date, publisher: publisher, cover_state: cover_state, label: label }
-    book = Book.new(inputs)
+    book = Book.new(publisher, cover_state, label)
     @books << book
     save_books
     save_labels
@@ -65,7 +64,12 @@ class BookHandler
 
     books_data = JSON.parse(File.read('books.json'))
     books_data.each do |book_data|
-      label = Label.new(book_data['title'], book_data['color'])
+      label_title = book_data['title']
+      label_color = book_data['color']
+
+      label = @labels.find { |lb| lb.title == label_title && lb.color == label_color }
+      next unless label
+
       book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'],
                       cover_state: book_data['cover_state'], label: label)
       @books << book
