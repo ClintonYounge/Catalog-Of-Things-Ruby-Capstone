@@ -5,7 +5,7 @@ class Item
   attr_accessor :label, :genre, :author
   attr_reader :id, :published_date, :archived
 
-  def initialize(published_date:, label id: nil)
+  def initialize(published_date, label, id: nil)
     @id = id || SecureRandom.uuid
     @label = label
     @genre = nil

@@ -6,16 +6,18 @@ class BookHandler
   def initialize
     @books = []
     @labels = []
+    load_books
+    load_labels
   end
 
   def input_book
   end
 
-  def add_book(book)
+  def add_book
     puts 'Enter book title:'
     title = gets.chomp.capitalize
     puts 'Enter book published date:'
-    publish_date = gets.chomp
+    published_date = gets.chomp
     puts 'Enter book Color:'
     color = gets.chomp.capitalize
     puts 'Enter book publisher:'
@@ -24,9 +26,11 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    inputs = { publish_date: publish_date, publisher: publisher, cover_state: cover_state, label: label }
+    inputs = { published_date: published_date, publisher: publisher, cover_state: cover_state, label: label }
     book = Book.new(inputs)
     @books << book
+    save_books
+    save_labels
     puts "The book #{book.label.title} was added successfully👏"
   end
 
@@ -45,20 +49,23 @@ class BookHandler
   def save_books
     books_data = @books.each do |book|
       {
-        'publish_date' => book.publish_date,
-        'publisher' => book.publisher,
-        'cover_state' => book.cover_state,
-        'label' => book.label
+        published_date: book.published_date,
+        publisher: book.publisher,
+        cover_state: book.cover_state,
+        label: book.label
       }
     end
     File.write('books.json', JSON.generate(books_data))
   end
 
   def load_books
-    return unless File.exist?('books.json')
+    unless File.exist?('books.json')
+      puts 'No books found.'
+      return
+    end
     books_data = JSON.parse(File.read('books.json'))
     books_data.each do |book_data|
-      book = Book.new(publish_date: book_data['publish_date'], publisher: book_data['publisher'], cover_state: book_data['cover_state'], label: book_data['label'])
+      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'], cover_state: book_data['cover_state'], label: book_data['label'])
       @books << book
     end
   end
@@ -66,12 +73,12 @@ class BookHandler
   def save_labels
    label_data = @labels.each do |label|
     {
-      'title': label.title,
-      'color': label.color
+      title: label.title,
+      color: label.color
     }
 
     end
-    File.write('labels.json', generate.JSON(label_data))
+    File.write('labels.json', JSON.generate(label_data))
   end
 
   def load_labels
