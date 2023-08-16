@@ -10,9 +10,6 @@ class BookHandler
     load_labels
   end
 
-  def input_book
-  end
-
   def add_book
     puts 'Enter book title:'
     title = gets.chomp.capitalize
@@ -36,7 +33,7 @@ class BookHandler
 
   def list_all_books
     @books.each_with_index do |bk, index|
-      puts "#{index + 1}: Title: #{bk.label.title} ID: #{bk.id} Cover state: #{bk.cover_state}"
+      puts "#{index + 1}: Title: #{bk.label.title}  Color: #{bk.label.color} Cover state: #{bk.cover_state}"
     end
   end
 
@@ -47,52 +44,48 @@ class BookHandler
   end
 
   def save_books
-    books_data = @books.each do |book|
+    books_data = @books.map do |book|
       {
         published_date: book.published_date,
         publisher: book.publisher,
         cover_state: book.cover_state,
-        label: book.label
+        title: book.label.title,
+        color: book.label.color
+
       }
     end
     File.write('books.json', JSON.generate(books_data))
   end
 
   def load_books
-    unless File.exist?('books.json')
-      puts 'No books found.'
-      return
-    end
+    return unless File.exist?('books.json')
+
     books_data = JSON.parse(File.read('books.json'))
     books_data.each do |book_data|
-      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'], cover_state: book_data['cover_state'], label: book_data['label'])
+      label = Label.new(book_data['title'], book_data['color'])
+      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'],
+                      cover_state: book_data['cover_state'], label: label)
       @books << book
     end
   end
 
   def save_labels
-   label_data = @labels.each do |label|
-    {
-      title: label.title,
-      color: label.color
-    }
-
+    label_data = @labels.map do |label|
+      {
+        title: label.title,
+        color: label.color
+      }
     end
     File.write('labels.json', JSON.generate(label_data))
   end
 
   def load_labels
-    unless File.exist?('labels.json')
-      puts 'No labels found.'
-      return
-    end
-    labels_data = JSON.parse(File.read('labels.json'))
+    return unless File.exist?('labels.json')
 
+    labels_data = JSON.parse(File.read('labels.json'))
     labels_data.each do |label_data|
       label = Label.new(label_data['title'], label_data['color'])
-      labels << label
+      @labels << label
     end
-
-    puts 'labels loaded successfully!'
   end
 end
