@@ -38,4 +38,16 @@ class BookHandler
       puts "#{index + 1}: Title: #{lb.title} color: #{lb.color}"
     end
   end
+
+  def save_books
+    books_data = @books.each do |book|
+      {
+        'publish_date' => book.publish_date,
+        'publisher' => book.publisher,
+        'cover_state' => book.cover_state,
+        'label' => book.label
+      }
+    end
+    File.write('books.json', JSON.generate(books_data))
+  end
 end
