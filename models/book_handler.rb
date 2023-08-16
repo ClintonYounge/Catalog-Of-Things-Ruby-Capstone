@@ -62,4 +62,30 @@ class BookHandler
       @books << book
     end
   end
+
+  def save_labels
+   label_data = @labels.each do |label|
+    {
+      'title': label.title,
+      'color': label.color
+    }
+
+    end
+    File.write('labels.json', generate.JSON(label_data))
+  end
+
+  def load_labels
+    unless File.exist?('labels.json')
+      puts 'No labels found.'
+      return
+    end
+    labels_data = JSON.parse(File.read('labels.json'))
+
+    labels_data.each do |label_data|
+      label = Label.new(label_data['title'], label_data['color'])
+      labels << label
+    end
+
+    puts 'labels loaded successfully!'
+  end
 end
