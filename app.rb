@@ -184,7 +184,7 @@ class App
     @music_manager.save_music_albums_json
   end
 
-  def save_music_albums_json
+  def save_genres
     @music_manager.save_genres
   end
 

@@ -11,6 +11,7 @@ def main
   app.save_games_json
   app.save_authors_json
   app.save_music_albums_json
+  app.save_genres
 end
 
 main
