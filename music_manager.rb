@@ -82,19 +82,18 @@ class MusicManager
     genre_data = @genres.map do |genre|
       {
         name: genre.name,
-        items: genre.items.map { |item| item.title } # Save titles of associated items
+        items: genre.items.map(&:title) # Save titles of associated items
       }
     end
     File.write('genres.json', JSON.generate(genre_data))
   end
-  
 
   def load_genres
     return unless File.exist?('genres.json')
-  
+
     json_data = File.read('genres.json')
     genre_data = JSON.parse(json_data)
-  
+
     @genres = genre_data.map do |genre_info|
       genre = Genre.new(genre_info['name'])
       genre_info['items'].each do |item_title|
@@ -103,8 +102,7 @@ class MusicManager
       end
       genre
     end
-  
+
     puts 'Genres loaded successfully👏'
   end
-  
 end
