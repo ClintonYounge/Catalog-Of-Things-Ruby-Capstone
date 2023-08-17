@@ -26,8 +26,6 @@ class BookHandler
     @labels << label
     book = Book.new(label, published_date, publisher, cover_state)
     @books << book
-    save_books
-    save_labels
     puts "The book #{book.label.title} was added successfully👏"
   end
 
@@ -91,5 +89,10 @@ class BookHandler
       @labels << label
     end
     puts 'Labels loaded successfully👏'
+  end
+
+  def save_books_and_labels
+    save_books
+    save_labels
   end
 end
