@@ -25,8 +25,15 @@ class MusicManager
 
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
-    genre = Genre.new(genre_name)
-    @genres << genre
+    # Check if the genre already exists
+    genre = @genres.find { |existing_genre| existing_genre.name == genre_name }
+
+    # If the genre doesn't exist, create a new one
+    unless genre
+      genre = Genre.new(genre_name)
+      @genres << genre
+    end
+    genre.add_item(music_album)
     puts "Music album '#{title}' added."
   end
 
