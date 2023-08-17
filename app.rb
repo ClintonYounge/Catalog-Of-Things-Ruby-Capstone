@@ -162,13 +162,11 @@ class App
     puts 'Welcome to the Catalog of things! What would you like to interact with?'
   end
 
-  def save_games_and_authors
-    @game_storage.save_games_json
+  def save_authors_json
     @game_storage.save_authors_json
   end
 
-  def load_games_and_authors
-    @game_storage.load_games_json
+  def load_games_json
     @game_storage.load_authors_json
   end
 
