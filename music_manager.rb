@@ -61,7 +61,6 @@ class MusicManager
 
   def load_music_albums
     unless File.exist?('music_albums.json')
-      puts 'No music albums found.'
       return
     end
 
@@ -85,7 +84,6 @@ class MusicManager
 
   def load_genres
     unless File.exist?('genres.json')
-      puts 'No genres found.'
       return
     end
 

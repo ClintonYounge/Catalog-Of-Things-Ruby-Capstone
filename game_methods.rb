@@ -10,9 +10,6 @@ class GameMethods
       games.each do |game|
         puts "Multiplayer: #{game.multiplayer}. Last played at: #{game.last_played_at}"
       end
-    else
-      puts 'No games found'
-    end
   end
 
   def list_authors(authors)
@@ -20,9 +17,6 @@ class GameMethods
       authors.each do |author|
         puts "First Name: #{author.first_name}, Last Name: #{author.last_name}"
       end
-    else
-      puts 'No authors found'
-    end
   end
 
   def add_game(games, authors)
