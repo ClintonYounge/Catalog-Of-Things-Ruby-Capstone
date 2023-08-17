@@ -6,22 +6,18 @@ class GameMethods
   attr_accessor :games
 
   def list_games(games)
-    if games.length.positive?
-      games.each do |game|
-        puts "Multiplayer: #{game.multiplayer}. Last played at: #{game.last_played_at}"
-      end
-    else
-      puts 'No games found'
+    return unless games.length.positive?
+
+    games.each do |game|
+      puts "Multiplayer: #{game.multiplayer}. Last played at: #{game.last_played_at}"
     end
   end
 
   def list_authors(authors)
-    if authors.length.positive?
-      authors.each do |author|
-        puts "First Name: #{author.first_name}, Last Name: #{author.last_name}"
-      end
-    else
-      puts 'No authors found'
+    return unless authors.length.positive?
+
+    authors.each do |author|
+      puts "First Name: #{author.first_name}, Last Name: #{author.last_name}"
     end
   end
 

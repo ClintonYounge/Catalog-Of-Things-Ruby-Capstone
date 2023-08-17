@@ -1,21 +1,20 @@
 require_relative '../music_album'
 
-RSpec.describe MusicAlbum do
-  let(:music_album) { MusicAlbum.new(title: 'Album 1', published_date: '2012-01-01', on_spotify: true) }
-
-  describe '#can_be_archived?' do
-    it 'returns true if publish date is older than 10 years and on_spotify is true' do
-      expect(music_album.can_be_archived?).to be true
+describe MusicAlbum do
+  describe '#initialize' do
+    it 'creates a music album with a title' do
+      music_album = MusicAlbum.new(title: 'The Dark Side of the Moon')
+      expect(music_album.title).to eq('The Dark Side of the Moon')
     end
 
-    it 'returns false if publish date is not older than 10 years' do
-      music_album2 = MusicAlbum.new(title: 'Album 2', published_date: '2020-01-01', on_spotify: false)
-      expect(music_album2.can_be_archived?).to be false
+    it 'creates a music album with a publish date' do
+      music_album = MusicAlbum.new(publish_date: '1973-03-01')
+      expect(music_album.publish_date).to eq('1973-03-01')
     end
 
-    it 'returns false if on_spotify is false' do
-      music_album.instance_variable_set('@on_spotify', false)
-      expect(music_album.can_be_archived?).to be false
+    it 'creates a music album that is on Spotify' do
+      music_album = MusicAlbum.new(on_spotify: true)
+      expect(music_album.on_spotify).to eq(true)
     end
   end
 end

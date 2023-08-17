@@ -24,8 +24,7 @@ class BookHandler
     cover_state = gets.chomp.capitalize
     label = Label.new(title, color)
     @labels << label
-    inputs = { published_date: published_date, publisher: publisher, cover_state: cover_state, label: label }
-    book = Book.new(inputs)
+    book = Book.new(label, published_date, publisher, cover_state)
     @books << book
     save_books
     save_labels
@@ -33,16 +32,18 @@ class BookHandler
   end
 
   def list_all_books
+    puts ' '
     puts 'Here are all the books:'
     @books.each_with_index do |bk, index|
-      puts "#{index + 1}: Title: #{bk.label.title}  Color: #{bk.label.color} Cover state: #{bk.cover_state}"
+      puts "#{index + 1}: Title: #{bk.label.title}, Book color: #{bk.label.color}, Cover state: #{bk.cover_state}"
     end
   end
 
   def list_all_labels
+    puts ' '
     puts 'Here are all the labels:'
     @labels.each_with_index do |lb, index|
-      puts "#{index + 1}: Title: #{lb.title} color: #{lb.color}"
+      puts "#{index + 1}: Title: #{lb.title}, color: #{lb.color}"
     end
   end
 
@@ -54,7 +55,6 @@ class BookHandler
         cover_state: book.cover_state,
         title: book.label.title,
         color: book.label.color
-
       }
     end
     File.write('books.json', JSON.generate(books_data))
@@ -66,9 +66,9 @@ class BookHandler
     books_data = JSON.parse(File.read('books.json'))
     books_data.each do |book_data|
       label = Label.new(book_data['title'], book_data['color'])
-      book = Book.new(published_date: book_data['published_date'], publisher: book_data['publisher'],
-                      cover_state: book_data['cover_state'], label: label)
+      book = Book.new(label, book_data['published_date'], book_data['publisher'], book_data['cover_state'])
       @books << book
+      puts 'Books loaded successfully👏'
     end
   end
 
@@ -90,5 +90,6 @@ class BookHandler
       label = Label.new(label_data['title'], label_data['color'])
       @labels << label
     end
+    puts 'Labels loaded successfully👏'
   end
 end

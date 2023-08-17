@@ -26,7 +26,7 @@ class GameStorage
       games << game
     end
 
-    puts 'Games loaded successfully!'
+    puts 'Games loaded successfully!👏'
   end
 
   def save_authors_json(authors)
@@ -51,6 +51,6 @@ class GameStorage
       authors << author
     end
 
-    puts 'Authors loaded successfully!'
+    puts 'Authors loaded successfully!👏'
   end
 end
