@@ -110,7 +110,8 @@ Run the `rspec spec` command in your console to run the tests.
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- N/A.
+- Restructured code.
+- Improved UX.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
