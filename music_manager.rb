@@ -14,6 +14,9 @@ class MusicManager
     print 'Enter music album title: '
     title = gets.chomp
 
+    print 'Enter music album genre: '
+    genre_name = gets.chomp
+
     print 'Enter music album publish date (YYYY-MM-DD): '
     publish_date = gets.chomp
 
@@ -22,6 +25,8 @@ class MusicManager
 
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
+    genre = Genre.new(genre_name)
+    @genres << genre
     puts "Music album '#{title}' added."
   end
 
