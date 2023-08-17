@@ -14,18 +14,26 @@ class MusicManager
     print 'Enter music album title: '
     title = gets.chomp
 
+    puts 'What genre is the music album?'
+    genre = gets.chomp
+
     print 'Enter music album publish date (YYYY-MM-DD): '
     publish_date = gets.chomp
 
     print 'Is the music album on Spotify? (true/false): '
     on_spotify = gets.chomp.downcase == 'true'
 
+    new_genre = Genre.new(genre)
+    @genres << new_genre
+
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
     puts "Music album '#{title}' added."
+    save_genres
   end
 
   def list_music_albums
+    puts ' '
     puts 'Here are all the music albums:'
     @music_albums.each_with_index do |album, index|
       puts "#{index + 1}. #{album.title} (Published: #{album.publish_date})"
@@ -33,9 +41,10 @@ class MusicManager
   end
 
   def list_genres
+    puts ' '
     puts 'Here are all the genres:'
     @genres.each_with_index do |genre, index|
-      puts "#{index + 1}. #{genre.name}: #{genre.items.count} items"
+      puts "#{index + 1}. Genre Name: #{genre.name}"
     end
   end
 
@@ -66,17 +75,26 @@ class MusicManager
   end
 
   def save_genres
-    File.open('data/genres.json', 'w') do |file|
-      json_data = @genres.map(&:to_hash).to_json
-      file.write(json_data)
+    genre_data = @genres.map do |genre|
+      {
+        name: genre.name
+      }
     end
+    File.write('genres.json', JSON.generate(genre_data))
   end
 
   def load_genres
-    return unless File.exist?('data/genres.json')
+    unless File.exist?('genres.json')
+      puts 'No genres found.'
+      return
+    end
 
-    json_data = File.read('data/genres.json')
-    genre_hashes = JSON.parse(json_data)
-    @genres = genre_hashes.map { |hash| Genre.from_hash(hash) }
+    genres_data = JSON.parse(File.read('genres.json'))
+
+    genres_data.each do |genre_data|
+      genre = Genre.new(genre_data['name'])
+      @genres << genre
+    end
+    puts 'Genres loaded successfully👏'
   end
 end
