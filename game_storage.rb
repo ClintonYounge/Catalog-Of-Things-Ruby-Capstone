@@ -4,6 +4,10 @@ require_relative 'author'
 require 'json'
 
 class GameStorage
+  def initialize(authors)
+    @authors = authors
+  end
+
   def save_games_json(games)
     games_data = games.map do |game|
       {

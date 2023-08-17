@@ -8,11 +8,10 @@ class App
   def initialize
     @menus = Menus.new
     @books_handler = BookHandler.new
-    @game_methods = GameMethods.new
-    @game_storage = GameStorage.new
     @music_manager = MusicManager.new
-    @games = []
     @authors = []
+    @game_methods = GameMethods.new(@authors)
+    @game_storage = GameStorage.new(@authors)
   end
 
   def run
@@ -144,18 +143,18 @@ class App
 
   def list_games
     puts ' '
-    @game_methods.list_games(@games)
+    @game_methods.list_games
     run_games
   end
 
   def list_authors
     puts ' '
-    @game_methods.list_authors(@authors)
+    @game_methods.list_authors
     run_games
   end
 
   def add_game
-    @game_methods.add_game(@games, @authors)
+    @game_methods.add_game
     run_games
   end
 
@@ -164,13 +163,13 @@ class App
   end
 
   def save_games_and_authors
-    @game_storage.save_games_json(@games)
-    @game_storage.save_authors_json(@authors)
+    @game_storage.save_games_json
+    @game_storage.save_authors_json
   end
 
   def load_games_and_authors
-    @game_storage.load_games_json(@games)
-    @game_storage.load_authors_json(@authors)
+    @game_storage.load_games_json
+    @game_storage.load_authors_json
   end
 
   def save_music_albums_and_genres
