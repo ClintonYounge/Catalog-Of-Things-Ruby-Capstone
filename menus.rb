@@ -7,6 +7,7 @@ class Menus
   end
 
   def books_menu
+    puts ' '
     puts 'What would you like to do?'
     puts '1. List all books'
     puts '2. List all labels'
@@ -15,6 +16,7 @@ class Menus
   end
 
   def music_menu
+    puts ' '
     puts 'What would you like to do?'
     puts '1. List all music albums'
     puts '2. List all genres'
@@ -23,6 +25,7 @@ class Menus
   end
 
   def games_menu
+    puts ' '
     puts 'What would you like to do?'
     puts '1. List of games'
     puts '2. List all authors'
@@ -31,6 +34,7 @@ class Menus
   end
 
   def back_main
+    puts ' '
     puts 'Going back...'
     puts '-------------------------'
   end

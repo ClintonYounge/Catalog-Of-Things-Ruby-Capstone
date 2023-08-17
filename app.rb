@@ -143,11 +143,13 @@ class App
   end
 
   def list_games
+    puts ' '
     @game_methods.list_games(@games)
     run_games
   end
 
   def list_authors
+    puts ' '
     @game_methods.list_authors(@authors)
     run_games
   end
@@ -158,6 +160,7 @@ class App
   end
 
   def welcome
+    puts ' '
     puts 'Welcome to the Catalog of things! What would you like to interact with?'
   end
 

@@ -32,6 +32,7 @@ class BookHandler
   end
 
   def list_all_books
+    puts ' '
     puts 'Here are all the books:'
     @books.each_with_index do |bk, index|
       puts "#{index + 1}: Title: #{bk.label.title}, Book color: #{bk.label.color}, Cover state: #{bk.cover_state}"
@@ -39,6 +40,7 @@ class BookHandler
   end
 
   def list_all_labels
+    puts ' '
     puts 'Here are all the labels:'
     @labels.each_with_index do |lb, index|
       puts "#{index + 1}: Title: #{lb.title}, color: #{lb.color}"
@@ -88,5 +90,6 @@ class BookHandler
       label = Label.new(label_data['title'], label_data['color'])
       @labels << label
     end
+    puts 'Labels loaded successfully👏'
   end
 end
