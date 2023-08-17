@@ -29,7 +29,6 @@ class MusicManager
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
     puts "Music album '#{title}' added."
-    save_genres
   end
 
   def list_music_albums
