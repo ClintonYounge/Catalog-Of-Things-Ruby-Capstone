@@ -60,9 +60,7 @@ class MusicManager
   end
 
   def load_music_albums
-    unless File.exist?('music_albums.json')
-      return
-    end
+    return unless File.exist?('music_albums.json')
 
     albums_data = JSON.parse(File.read('music_albums.json'))
 
@@ -83,9 +81,7 @@ class MusicManager
   end
 
   def load_genres
-    unless File.exist?('genres.json')
-      return
-    end
+    return unless File.exist?('genres.json')
 
     genres_data = JSON.parse(File.read('genres.json'))
 
