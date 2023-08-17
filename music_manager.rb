@@ -14,8 +14,8 @@ class MusicManager
     print 'Enter music album title: '
     title = gets.chomp
 
-    print 'Enter music album genre: '
-    genre_name = gets.chomp
+    puts 'What genre is the music album?'
+    genre = gets.chomp
 
     print 'Enter music album publish date (YYYY-MM-DD): '
     publish_date = gets.chomp
@@ -23,18 +23,13 @@ class MusicManager
     print 'Is the music album on Spotify? (true/false): '
     on_spotify = gets.chomp.downcase == 'true'
 
+    new_genre = Genre.new(genre)
+    @genres << new_genre
+
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
-    # Check if the genre already exists
-    genre = @genres.find { |existing_genre| existing_genre.name == genre_name }
-
-    # If the genre doesn't exist, create a new one
-    unless genre
-      genre = Genre.new(genre_name)
-      @genres << genre
-    end
-    genre.add_item(music_album)
     puts "Music album '#{title}' added."
+    save_genres
   end
 
   def list_music_albums
@@ -46,9 +41,10 @@ class MusicManager
   end
 
   def list_genres
+    puts ' '
     puts 'Here are all the genres:'
     @genres.each_with_index do |genre, index|
-      puts "#{index + 1}. #{genre.name}: #{genre.items.count} items"
+      puts "#{index + 1}. Genre Name: #{genre.name}"
     end
   end
 
