@@ -10,6 +10,7 @@
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
   - [Install](#install)
+  - [Run tests](#run-tests)
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
 - [🤝 Contributing](#contributing)
@@ -37,7 +38,13 @@ The site was built with Ruby.
 
 ### Key Features <a name="key-features"></a>
 
-- N/A
+- Add author
+- Add music album
+- Add book
+- Easy to work with User Interface
+- Storage for all methods
+- Testing
+- Schema.sql to match created classes
 
 ## Getting Started
 
@@ -73,6 +80,13 @@ Install this project with:
   bundle install
 ```
 
+### Run tests
+
+To run tests, run the following command:
+
+Run the `rspec spec` command in your console to run the tests.
+
+
 ## 👥 Authors <a name="authors"></a>
 
 👤 **Clinton Younge**
@@ -80,6 +94,16 @@ Install this project with:
 - GitHub: [@ClintonYounge](https://github.com/ClintonYounge)
 - Linkedin: [@clinton-younge](https://www.linkedin.com/in/clinton-younge-83386a25a/)
 - Twitter: [@YoungeCjay](https://twitter.com/YoungeCjay)
+
+👤 ** Jiachun Xiang **
+
+- GitHub: https://github.com/mpa-mxiang
+- LinkedIn: https://www.linkedin.com/in/jiachun-lily-xiang-1b197213a/
+
+👤 **Sylvester Wamaya**
+
+- GitHub: [@githubhandle](https://github.com/sylvester-wamaya)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/sylvester-wamaya-b11a93112/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
