@@ -184,10 +184,6 @@ class App
     @music_manager.save_music_albums_json
   end
 
-  def save_genres
-    @music_manager.save_genres
-  end
-
   def exit_app
     puts 'Thanks for using our app!'
   end
