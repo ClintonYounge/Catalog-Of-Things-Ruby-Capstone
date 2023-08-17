@@ -6,8 +6,6 @@ class GameMethods
   attr_accessor :games
 
   def list_games(games)
-    puts ' '
-    puts 'Here are all the games:'
     if games.length.positive?
       games.each do |game|
         puts "Multiplayer: #{game.multiplayer}. Last played at: #{game.last_played_at}"
@@ -18,8 +16,6 @@ class GameMethods
   end
 
   def list_authors(authors)
-    puts ' '
-    puts 'Here are all the authors:'
     if authors.length.positive?
       authors.each do |author|
         puts "First Name: #{author.first_name}, Last Name: #{author.last_name}"
