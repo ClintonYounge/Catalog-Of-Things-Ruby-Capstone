@@ -42,7 +42,6 @@ class Item
   private
 
   def can_be_archived?
-
     (Date.today - Date.parse(@published_date)).to_i > 3650
   end
 end
