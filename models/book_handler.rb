@@ -11,37 +11,51 @@ class BookHandler
   end
 
   def add_book
-    puts 'Adding a book'
-    puts 'Enter book title:'
+    puts "\nAdding a book"
+
+    puts "\nEnter book title:"
     title = gets.chomp.capitalize
-    puts 'Enter book published date:'
+
+    puts "\nEnter book published date:"
     published_date = gets.chomp
-    puts 'Enter book Color:'
+
+    puts "\nEnter book Color:"
     color = gets.chomp.capitalize
-    puts 'Enter book publisher:'
+
+    puts "\nEnter book publisher:"
     publisher = gets.chomp.capitalize
-    puts 'Enter book cover state "Good or bad":'
+
+    puts "\nEnter book cover state 'Good' or 'bad':"
     cover_state = gets.chomp.capitalize
+
     label = Label.new(title, color)
     @labels << label
     book = Book.new(label, published_date, publisher, cover_state)
     @books << book
-    puts "The book #{book.label.title} was added successfully👏"
+    puts "\nThe book '#{book.label.title}' was added successfully👏"
   end
 
   def list_all_books
-    puts ' '
-    puts 'Here are all the books:'
-    @books.each_with_index do |bk, index|
-      puts "#{index + 1}: Title: #{bk.label.title}, Book color: #{bk.label.color}, Cover state: #{bk.cover_state}"
+    if @books.empty?
+      puts "\nNo books were found. Feel free to add a new book."
+    else
+      puts "\nHere are all the books:"
+      @books.each_with_index do |bk, index|
+        puts "#{index + 1}: Title: #{bk.label.title}, Book color: #{bk.label.color}, Cover state: #{bk.cover_state}"
+        puts '---------------------------------------------------'
+      end
     end
   end
 
   def list_all_labels
-    puts ' '
-    puts 'Here are all the labels:'
-    @labels.each_with_index do |lb, index|
-      puts "#{index + 1}: Title: #{lb.title}, color: #{lb.color}"
+    if @labels.empty?
+      puts "\nNo labels were found. Feel free to add a new book."
+    else
+      puts "\nHere are all the labels:"
+      @labels.each_with_index do |lb, index|
+        puts "#{index + 1}: Title: #{lb.title}, color: #{lb.color}"
+        puts '---------------------------------------------------'
+      end
     end
   end
 
@@ -88,7 +102,6 @@ class BookHandler
       label = Label.new(label_data['title'], label_data['color'])
       @labels << label
     end
-    puts 'Labels loaded successfully👏'
   end
 
   def save_books_and_labels

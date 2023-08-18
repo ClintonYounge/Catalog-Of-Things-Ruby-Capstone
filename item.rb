@@ -2,27 +2,49 @@ require 'securerandom'
 require 'date'
 
 class Item
-  attr_accessor :label, :genre, :author
-  attr_reader :id, :published_date, :archived
+  attr_accessor :published_date
+  attr_reader :genre, :author, :label
 
-  def initialize(published_date = nil, id: nil)
-    @id = id || SecureRandom.uuid
-    @label = nil
-    @genre = nil
-    @author = nil
+  def initialize(published_date = nil)
+    @id = SecureRandom.uuid
     @published_date = published_date
     @archived = false
-    move_to_archive
   end
 
-  def can_be_archived?
-    return false if @published_date.nil?
+  def genre=(new_genre)
+    @genre = new_genre
+    new_genre.add_item(self)
+  end
 
-    published_date = DateTime.parse(@published_date)
-    published_date < DateTime.now - 30
+  def author=(new_author)
+    @author = new_author
+    author.add_item(self)
+  end
+
+  def label=(new_label)
+    return if @label == new_label
+
+    @label = new_label
+    new_label&.add_item(self)
+  end
+
+  def test_can_be_archived
+    can_be_archived?
   end
 
   def move_to_archive
+    return unless can_be_archived?
+
+    @archived = true
+  end
+
+  def archived?
     @archived = can_be_archived?
+  end
+
+  private
+
+  def can_be_archived?
+    (Date.today - @published_date).to_i > 3650
   end
 end

@@ -4,7 +4,7 @@ class Book < Item
   attr_accessor :publisher, :cover_state, :label
 
   def initialize(label, published_date = 'unknown', publisher = 'unknown', cover_state = 'unknown')
-    super()
+    super(published_date)
     @published_date = published_date
     @publisher = publisher
     @cover_state = cover_state
@@ -12,6 +12,6 @@ class Book < Item
   end
 
   def can_be_archived?
-    super || (@cover_state == 'Bad')
+    @cover_state == 'Bad' || (Date.today - Date.parse(@published_date)).to_i > 3650
   end
 end

@@ -1,5 +1,3 @@
-require_relative 'music_manager'
-# genre.rb
 class Genre
   attr_accessor :name, :items
 
@@ -9,7 +7,9 @@ class Genre
   end
 
   def add_item(item)
-    @items << item
+    return if item.genre
+
     item.genre = self
+    @items << item
   end
 end
