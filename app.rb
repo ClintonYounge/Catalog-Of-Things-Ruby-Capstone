@@ -20,7 +20,6 @@ class App
   def welcome
     puts "\nWelcome to the Catalog of things! What would you like to interact with?"
   end
-  
 
   def run
     @menus.main_menu
@@ -160,6 +159,7 @@ class App
   end
 
   def add_game
+    puts "\nAdding a game"
     @game_methods.add_game
     run_games
   end

@@ -10,8 +10,6 @@ class GameMethods
   end
 
   def add_game
-    puts "\nAdding a game"
-
     puts "\nWhat's the name of the game?"
     game_name = gets.chomp.capitalize
 
