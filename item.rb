@@ -37,7 +37,6 @@ class Item
 
     @archived = true
   end
-
   def archived?
     @archived = can_be_archived?
     @archived
