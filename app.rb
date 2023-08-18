@@ -2,16 +2,23 @@ require_relative 'menus'
 require './models/book_handler'
 require_relative 'game_methods'
 require_relative 'game_storage'
-require_relative 'music_manager'
+require_relative 'genre_methods'
+require_relative 'genre_storage'
 
 class App
   def initialize
     @menus = Menus.new
     @books_handler = BookHandler.new
-    @music_manager = MusicManager.new
     @authors = []
+    @genres = []
     @game_methods = GameMethods.new(@authors)
     @game_storage = GameStorage.new(@authors)
+    @genre_methods = GenreMethods.new(@genres)
+    @genre_storage = GenreStorage.new(@genres)
+  end
+
+  def welcome
+    puts 'Welcome to the Catalog of things! What would you like to interact with?'
   end
 
   def run
@@ -74,7 +81,7 @@ class App
     choice = gets.chomp.to_i
 
     menu_options = {
-      1 => :list_music,
+      1 => :list_albums,
       2 => :list_genres,
       3 => :add_music,
       4 => :go_back
@@ -121,30 +128,14 @@ class App
     run_books
   end
 
-  def add_book
-    @books_handler.add_book
-    run_books
-  end
-
-  def list_music
-    @music_manager.list_music_albums
-    run_music
-  end
-
   def list_genres
-    @music_manager.list_genres
+    @genre_methods.list_genres
     run_music
   end
 
-  def add_music
-    @music_manager.create_music_album
+  def list_albums
+    @genre_methods.list_albums
     run_music
-  end
-
-  def list_games
-    puts ' '
-    @game_methods.list_games
-    run_games
   end
 
   def list_authors
@@ -153,13 +144,25 @@ class App
     run_games
   end
 
-  def add_game
-    @game_methods.add_game
+  def list_games
+    puts ' '
+    @game_methods.list_games
     run_games
   end
 
-  def welcome
-    puts 'Welcome to the Catalog of things! What would you like to interact with?'
+  def add_book
+    @books_handler.add_book
+    run_books
+  end
+
+  def add_music
+    @genre_methods.add_music
+    run_music
+  end
+
+  def add_game
+    @game_methods.add_game
+    run_games
   end
 
   def save_authors_json
@@ -170,9 +173,12 @@ class App
     @game_storage.load_authors_json
   end
 
-  def save_music_albums_and_genres
-    @music_manager.save_music_albums_json
-    @music_manager.save_genres
+  def save_genres_json
+    @genre_storage.save_genres_json
+  end
+
+  def load_genres_json
+    @genre_storage.load_genres_json
   end
 
   def save_books_and_labels
