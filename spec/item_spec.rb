@@ -36,7 +36,3 @@ describe Item do
     expect(item.test_can_be_archived).to eq(false)
   end
 end
-
-
-# item = Item.new(Date.today - 1_000)
-# puts "Item can be archived: #{item.test_can_be_archived}"
