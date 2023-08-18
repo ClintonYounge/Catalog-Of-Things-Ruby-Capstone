@@ -38,12 +38,12 @@ The site was built with Ruby.
 
 ### Key Features <a name="key-features"></a>
 
-- Add author
-- Add music album
-- Add book
+- Add author method
+- Add music album method
+- Add book method
 - Easy to work with User Interface
-- Storage for all methods
-- Testing
+- Storage for all data
+- Testing for all methods
 - Schema.sql to match created classes
 
 ## Getting Started
