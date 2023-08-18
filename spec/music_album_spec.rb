@@ -1,20 +1,30 @@
 require_relative '../music_album'
+require_relative '../genre'
 
 describe MusicAlbum do
-  describe '#initialize' do
-    it 'creates a music album with a title' do
-      music_album = MusicAlbum.new(title: 'The Dark Side of the Moon')
-      expect(music_album.title).to eq('The Dark Side of the Moon')
-    end
+  before :each do
+    @album = MusicAlbum.new('The Wall', '1979-11-30', on_spotify: true)
+    @genre = Genre.new('Rock')
+  end
 
-    it 'creates a music album with a publish date' do
-      music_album = MusicAlbum.new(publish_date: '1973-03-01')
-      expect(music_album.publish_date).to eq('1973-03-01')
-    end
+  it 'should have a title' do
+    expect(@album.title).to eq('The Wall')
+  end
 
-    it 'creates a music album that is on Spotify' do
-      music_album = MusicAlbum.new(on_spotify: true)
-      expect(music_album.on_spotify).to eq(true)
-    end
+  it 'should have a publish date' do
+    expect(@album.publish_date).to eq('1979-11-30')
+  end
+
+  it 'should have a on_spotify property' do
+    expect(@album.on_spotify).to eq(true)
+  end
+
+  it 'should have an empty genre' do
+    expect(@album.genre).to eq(nil)
+  end
+
+  it 'should have a genre' do
+    @genre.add_item(@album)
+    expect(@album.genre.name).to eq('Rock')
   end
 end
