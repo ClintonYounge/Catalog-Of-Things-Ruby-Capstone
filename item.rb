@@ -40,7 +40,6 @@ class Item
 
   def archived?
     @archived = can_be_archived?
-    @archived
   end
 
   private
