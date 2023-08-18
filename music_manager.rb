@@ -14,8 +14,8 @@ class MusicManager
     print 'Enter music album title: '
     title = gets.chomp
 
-    puts 'What genre is the music album?'
-    genre = gets.chomp
+    print 'Enter music album genre: '
+    genre_name = gets.chomp
 
     print 'Enter music album publish date (YYYY-MM-DD): '
     publish_date = gets.chomp
@@ -23,16 +23,22 @@ class MusicManager
     print 'Is the music album on Spotify? (true/false): '
     on_spotify = gets.chomp.downcase == 'true'
 
-    new_genre = Genre.new(genre)
-    @genres << new_genre
-
     music_album = MusicAlbum.new(title: title, publish_date: publish_date, on_spotify: on_spotify)
     @music_albums << music_album
+    # Check if the genre already exists
+    genre = @genres.find { |existing_genre| existing_genre.name == genre_name }
+
+    # If the genre doesn't exist, create a new one
+    unless genre
+      genre = Genre.new(genre_name)
+      @genres << genre
+    end
+    genre.add_item(music_album)
+    save_genres
     puts "Music album '#{title}' added."
   end
 
   def list_music_albums
-    puts ' '
     puts 'Here are all the music albums:'
     @music_albums.each_with_index do |album, index|
       puts "#{index + 1}. #{album.title} (Published: #{album.publish_date})"
@@ -40,10 +46,9 @@ class MusicManager
   end
 
   def list_genres
-    puts ' '
     puts 'Here are all the genres:'
     @genres.each_with_index do |genre, index|
-      puts "#{index + 1}. Genre Name: #{genre.name}"
+      puts "#{index + 1}. #{genre.name}: #{genre.items.count} items"
     end
   end
 
@@ -59,7 +64,10 @@ class MusicManager
   end
 
   def load_music_albums
-    return unless File.exist?('music_albums.json')
+    unless File.exist?('music_albums.json')
+      puts 'No music albums found.'
+      return
+    end
 
     albums_data = JSON.parse(File.read('music_albums.json'))
 
@@ -73,7 +81,8 @@ class MusicManager
   def save_genres
     genre_data = @genres.map do |genre|
       {
-        name: genre.name
+        name: genre.name,
+        items: genre.items.map(&:title) # Save titles of associated items
       }
     end
     File.write('genres.json', JSON.generate(genre_data))
@@ -82,12 +91,18 @@ class MusicManager
   def load_genres
     return unless File.exist?('genres.json')
 
-    genres_data = JSON.parse(File.read('genres.json'))
+    json_data = File.read('genres.json')
+    genre_data = JSON.parse(json_data)
 
-    genres_data.each do |genre_data|
-      genre = Genre.new(genre_data['name'])
-      @genres << genre
+    @genres = genre_data.map do |genre_info|
+      genre = Genre.new(genre_info['name'])
+      genre_info['items'].each do |item_title|
+        item = @music_albums.find { |album| album.title == item_title }
+        genre.add_item(item) if item
+      end
+      genre
     end
+
     puts 'Genres loaded successfully👏'
   end
 end
