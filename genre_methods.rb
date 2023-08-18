@@ -10,38 +10,51 @@ class GenreMethods
   end
 
   def add_music
-    puts 'Enter the name of the genre:'
-    genre_name = gets.chomp.capitalize
+    puts "\nAdding a music album"
 
+    puts "\nEnter the genre of the album:"
+    genre_name = gets.chomp.capitalize
     genre = find_or_create_genre(genre_name)
 
-    puts 'Enter the title of the album:'
+    puts "\nEnter the title of the album:"
     album_title = gets.chomp.capitalize
 
-    puts 'Enter the publish date of the album (YYYY-MM-DD):'
+    puts "\nEnter the publish date of the album (YYYY-MM-DD):"
     publish_date_input = gets.chomp
 
-    puts 'Is the album on Spotify? (true/false):'
+    puts "\nIs the album on Spotify? (true/false):"
     on_spotify_input = gets.chomp.downcase == 'true'
 
     album = MusicAlbum.new(album_title, publish_date_input, on_spotify: on_spotify_input)
     genre.add_item(album)
 
     @genres << genre
+    puts "\nThe album '#{album.title}' was added successfully👏"
   end
 
   def list_genres
-    @genres.each do |genre|
-      puts "Genre: #{genre.name}"
+    if @genres.empty?
+      puts "\nNo genres were found. Feel free to add a new album."
+    else
+      puts "\nHere are all the genres:"
+      @genres.each_with_index do |genre, index|
+        puts "#{index + 1}: Genre: #{genre.name}"
+        puts '---------------------------------------------------'
+      end
     end
   end
 
   def list_albums
-    @genres.each do |genre|
-      genre.items.each do |album|
-        next unless album.is_a?(MusicAlbum)
-
-        puts "Album: #{album.title}, Published on: #{album.publish_date}, On Spotify: #{album.on_spotify}"
+    if @genres.empty?
+      puts "\nNo albums were found. Feel free to add a new album."
+    else
+      puts "\nHere are all the albums:"
+      @genres.each_with_index do |genre, index|
+        puts "#{index + 1}: Genre: #{genre.name}"
+        genre.items.each do |album|
+          puts "Title: #{album.title}, Publish date: #{album.publish_date}, On Spotify: #{album.on_spotify}"
+          puts '---------------------------------------------------'
+        end
       end
     end
   end

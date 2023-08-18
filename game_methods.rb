@@ -10,19 +10,21 @@ class GameMethods
   end
 
   def add_game
-    puts "What's the name of the game?"
+    puts "\nAdding a game"
+
+    puts "\nWhat's the name of the game?"
     game_name = gets.chomp.capitalize
 
-    print 'When was the game published date (YYYY-MM-DD): '
+    print "\nWhen was the game published date (YYYY-MM-DD):"
     published_date_input = gets.chomp
 
-    puts "What's the author's first name?"
+    puts "\nWhat's the author's first name?"
     first_name = gets.chomp.capitalize
 
-    puts "What's the author's last name?"
+    puts "\nWhat's the author's last name?"
     last_name = gets.chomp.capitalize
 
-    puts "What's the last time you played the game?"
+    puts "\nWhat's the last time you played the game?"
     last_played_at = gets.chomp
 
     begin
@@ -35,23 +37,35 @@ class GameMethods
     game = Game.new(game_name, played_date, published_date_input)
     author.add_item(game)
     @authors << author
+    puts "\nThe game '#{game_name}' was added successfully👏"
   end
 
   def list_games
-    @authors.each do |author|
-      author.items.each do |game|
-        next unless game.is_a?(Game)
+    if authors.empty?
+      puts "\nNo games were found. Feel free to add a new game."
+    else
+      puts "\nHere are all the games:"
+      @authors.each do |author|
+        author.items.each do |game|
+          next unless game.is_a?(Game)
 
-        puts "Game: #{game.multiplayer}, Author: #{author.first_name} #{author.last_name}"
-        puts "Game was published on #{game.published_date} and last played on #{game.last_played_at}"
+          puts "\nGame: #{game.multiplayer}, Author: #{author.first_name} #{author.last_name}"
+          puts "Published on #{game.published_date} and last played on #{game.last_played_at}"
+          puts '---------------------------------------------------'
+        end
       end
     end
   end
 
   def list_authors
-    @authors.each do |author|
-      puts "First name: #{author.first_name}, last name: #{author.last_name}"
-      puts '---------------------------------------------------'
+    if authors.empty?
+      puts "\nNo authors were found. Feel free to add a new game."
+    else
+      puts "\nHere are all the authors:"
+      @authors.each do |author|
+        puts "First name: #{author.first_name}, last name: #{author.last_name}"
+        puts '---------------------------------------------------'
+      end
     end
   end
 

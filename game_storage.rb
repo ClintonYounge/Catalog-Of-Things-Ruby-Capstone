@@ -1,4 +1,3 @@
-require_relative 'app'
 require_relative 'game'
 require_relative 'author'
 require 'json'
@@ -43,6 +42,7 @@ class GameStorage
       end
 
       authors << author
+      puts 'Authors loaded successfully👏'
     end
   end
 end
