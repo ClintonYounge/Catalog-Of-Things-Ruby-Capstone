@@ -28,6 +28,10 @@ class Item
     new_label&.add_item(self)
   end
 
+  def test_can_be_archived
+    can_be_archived?
+  end
+
   def move_to_archive
     return unless can_be_archived?
 
@@ -37,10 +41,6 @@ class Item
   def archived?
     @archived = can_be_archived?
     @archived
-  end
-
-  def test_can_be_archived
-    can_be_archived?
   end
 
   private
